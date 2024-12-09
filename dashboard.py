@@ -53,13 +53,3 @@ if show_markdown:
     - Item 3
     """)
 
-# Columns layout
-col1, col2 = st.columns(2)
-with col1:
-    st.image("https://via.placeholder.com/150", caption="Contoh Gambar")
-
-with col2:
-    st.write("Teks di sebelah gambar.")
-
-# Footer
-st.text("Dibuat dengan ❤ menggunakan Streamlit.")
