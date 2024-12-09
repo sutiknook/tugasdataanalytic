@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 # Title and description
 st.title("Dashboard Sederhana dengan Streamlit")
-st.text("Ini adalah contoh dashboard sederhana menggunakan Streamlit.")
+st.text("Bella Nurhasanah-240534003 Sutikno-240534003.")
 
 # Sidebar widget
 st.sidebar.header("Pengaturan Data")
@@ -15,7 +15,7 @@ show_markdown = st.sidebar.checkbox("Tampilkan Markdown")
 
 # Generate sample data
 data = pd.DataFrame({
-    "Kategori": [f"Kategori {i}" for i in range(1, 6)],
+    "Kategori": [f"Siswa {i}" for i in range(1, 6)],
     "Nilai": np.random.randint(10, 100, 5)
 })
 
