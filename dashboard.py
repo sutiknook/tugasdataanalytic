@@ -3,44 +3,63 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Judul
-st.title("Dashboard Interaktif dengan Streamlit")
+# Title and description
+st.title("Dashboard Sederhana dengan Streamlit")
+st.text("Ini adalah contoh dashboard sederhana menggunakan Streamlit.")
 
-# Elemen Dasar
-st.header("Dashboard Data")
-st.text("Kelompok Bella Nurhasanah-240534003 Suktikno-240534004")
+# Sidebar widget
+st.sidebar.header("Pengaturan Data")
+data_size = st.sidebar.slider("Ukuran Data", min_value=10, max_value=100, value=50)
+chart_type = st.sidebar.selectbox("Pilih Jenis Grafik", ["Line Chart", "Bar Chart", "Pie Chart"])
+show_markdown = st.sidebar.checkbox("Tampilkan Markdown")
 
-# Sidebar Layout
-st.sidebar.title("Pengaturan")
-num_points = st.sidebar.slider("Pilih jumlah data", min_value=10, max_value=100, value=50)
-show_pie_chart = st.sidebar.checkbox("Tampilkan Pie Chart")
-chart_type = st.sidebar.selectbox("Pilih jenis grafik", ["Line Chart", "Bar Chart"])
-
-# Data Dummy
+# Generate sample data
 data = pd.DataFrame({
-    'x': np.arange(1, num_points+1),
-    'y': np.random.randint(1, 100, num_points)
+    "Kategori": [f"Kategori {i}" for i in range(1, 6)],
+    "Nilai": np.random.randint(10, 100, 5)
 })
 
-# Dua Kolom Layout
+data_full = pd.DataFrame(
+    np.random.randn(data_size, 3),
+    columns=["A", "B", "C"]
+)
+
+# Tabs layout
+tab1, tab2 = st.tabs(["Grafik", "Data"])
+
+with tab1:
+    st.subheader("Visualisasi Data")
+
+    # Display chart based on selection
+    if chart_type == "Line Chart":
+        st.line_chart(data_full)
+    elif chart_type == "Bar Chart":
+        st.bar_chart(data_full)
+    elif chart_type == "Pie Chart":
+        fig, ax = plt.subplots()
+        ax.pie(data["Nilai"], labels=data["Kategori"], autopct="%1.1f%%")
+        st.pyplot(fig)
+
+with tab2:
+    st.subheader("Tabel Data")
+    st.dataframe(data)
+
+# Markdown element
+if show_markdown:
+    st.markdown(""" 
+    ### Markdown Contoh
+    - Item 1
+    - Item 2
+    - Item 3
+    """)
+
+# Columns layout
 col1, col2 = st.columns(2)
+with col1:
+    st.image("https://via.placeholder.com/150", caption="Contoh Gambar")
 
-# Grafik Line atau Bar Chart
-if chart_type == "Line Chart":
-    col1.line_chart(data)
-else:
-    col1.bar_chart(data)
+with col2:
+    st.write("Teks di sebelah gambar.")
 
-# Pie Chart di kolom 2
-if show_pie_chart:
-    pie_data = data['y'].value_counts().head(5)
-    fig, ax = plt.subplots()
-    ax.pie(pie_data, labels=pie_data.index, autopct='%1.1f%%')
-    ax.set_title("Distribusi Data")
-    col2.pyplot(fig)
-
-# Container Layout
-with st.container():
-    st.subheader("Statistik Data")
-    st.write("Statistik Deskriptif:")
-    st.write(data.describe())
+# Footer
+st.text("Dibuat dengan ❤ menggunakan Streamlit.")
