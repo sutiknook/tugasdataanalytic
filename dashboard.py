@@ -9,7 +9,6 @@ st.title("Dashboard Interaktif dengan Streamlit")
 # Elemen Dasar
 st.header("Dashboard Data")
 st.text("Kelompok Bella Nurhasanah-240534003 Suktikno-240534004")
-st.image("https://via.placeholder.com/800x200", caption="Contoh Gambar")
 
 # Sidebar Layout
 st.sidebar.title("Pengaturan")
